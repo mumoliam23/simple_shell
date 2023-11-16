@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "custom_shell.h"
 
 /**
  * custom_strncpy - copies a string up to a specified number of characters

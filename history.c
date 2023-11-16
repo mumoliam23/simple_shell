@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "custom_shell.h"
 
 /**
 * get_history_file_path - gets the path to the history file

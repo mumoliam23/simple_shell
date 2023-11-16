@@ -1,5 +1,5 @@
 #include "custom_shell.h"
-
+#include <unistd.h>
 /**
  * check_interactive_mode - Checks if the shell is in interactive mode
  * @shell_info: Information struct for the shell
