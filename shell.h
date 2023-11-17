@@ -1,5 +1,5 @@
-#ifndef _CUSTOM_SHELL_H_
-#define _CUSTOM_SHELL_H_
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -74,7 +74,6 @@ typedef struct liststr
  */
 typedef struct passinfo
 {
-	int read_file_descriptor;
 	char *arg;
 	char **argv;
 	char *path;
@@ -173,7 +172,6 @@ void print_error(info_t *, char *);
 int print_d(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
-void print_decimal(int value, int file_descriptor)
 
 /* toem_builtin.c */
 int _myexit(info_t *);

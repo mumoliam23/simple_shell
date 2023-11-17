@@ -1,122 +1,122 @@
-#include "custom_shell.h"
+#include "shell.h"
 
 /**
-* list_length - determines the length of a linked list
-* @head: pointer to the first node
-*
-* Return: size of the list
-*/
-size_t list_length(const list_t *head)
+ * list_len - determines length of linked list
+ * @h: pointer to first node
+ *
+ * Return: size of list
+ */
+size_t list_len(const list_t *h)
 {
-size_t count = 0;
+	size_t i = 0;
 
-while (head)
-{
-head = head->next;
-count++;
-}
-return (count);
+	while (h)
+	{
+		h = h->next;
+		i++;
+	}
+	return (i);
 }
 
 /**
-* list_to_strings - returns an array of strings from the list->str
-* @head: pointer to the first node
-*
-* Return: array of strings
-*/
+ * list_to_strings - returns an array of strings of the list->str
+ * @head: pointer to first node
+ *
+ * Return: array of strings
+ */
 char **list_to_strings(list_t *head)
 {
-list_t *node = head;
-size_t len = list_length(head);
-char **strings;
-char *str;
+	list_t *node = head;
+	size_t i = list_len(head), j;
+	char **strs;
+	char *str;
 
-if (!head || !len)
-return (NULL);
+	if (!head || !i)
+		return (NULL);
+	strs = malloc(sizeof(char *) * (i + 1));
+	if (!strs)
+		return (NULL);
+	for (i = 0; node; node = node->next, i++)
+	{
+		str = malloc(_strlen(node->str) + 1);
+		if (!str)
+		{
+			for (j = 0; j < i; j++)
+				free(strs[j]);
+			free(strs);
+			return (NULL);
+		}
 
-strings = malloc(sizeof(char *) * (len + 1));
-if (!strings)
-return (NULL);
-
-for (size_t i = 0; node; node = node->next, i++)
-{
-str = _strdup(node->str);
-if (!str)
-{
-for (size_t j = 0; j < i; j++)
-free(strings[j]);
-free(strings);
-return (NULL);
+		str = _strcpy(str, node->str);
+		strs[i] = str;
+	}
+	strs[i] = NULL;
+	return (strs);
 }
-strings[i] = str;
-}
-strings[len] = NULL;
-return (strings);
+
+
+/**
+ * print_list - prints all elements of a list_t linked list
+ * @h: pointer to first node
+ *
+ * Return: size of list
+ */
+size_t print_list(const list_t *h)
+{
+	size_t i = 0;
+
+	while (h)
+	{
+		_puts(convert_number(h->num, 10, 0));
+		_putchar(':');
+		_putchar(' ');
+		_puts(h->str ? h->str : "(nil)");
+		_puts("\n");
+		h = h->next;
+		i++;
+	}
+	return (i);
 }
 
 /**
-* print_list - prints all elements of a list_t linked list
-* @head: pointer to the first node
-*
-* Return: size of the list
-*/
-size_t print_list(const list_t *head)
+ * node_starts_with - returns node whose string starts with prefix
+ * @node: pointer to list head
+ * @prefix: string to match
+ * @c: the next character after prefix to match
+ *
+ * Return: match node or null
+ */
+list_t *node_starts_with(list_t *node, char *prefix, char c)
 {
-size_t count = 0;
+	char *p = NULL;
 
-while (head)
-{
-_puts(convert_number(head->num, 10, 0));
-_putchar(':');
-_putchar(' ');
-_puts(head->str ? head->str : "(nil)");
-_puts("\n");
-head = head->next;
-count++;
-}
-return (count);
-}
-
-/**
-* find_node_with_prefix - returns a node whose string starts with a prefix
-* @head: pointer to the list head
-* @prefix: string to match
-* @c: the next character after the prefix to match (-1 to ignore)
-*
-* Return: matching node or NULL
-*/
-list_t *find_node_with_prefix(list_t *head, char *prefix, char c)
-{
-char *p = NULL;
-
-while (head)
-{
-p = starts_with(head->str, prefix);
-if (p && ((c == -1) || (*p == c)))
-return (head);
-head = head->next;
-}
-return (NULL);
+	while (node)
+	{
+		p = starts_with(node->str, prefix);
+		if (p && ((c == -1) || (*p == c)))
+			return (node);
+		node = node->next;
+	}
+	return (NULL);
 }
 
 /**
-* get_node_index - gets the index of a node
-* @head: pointer to the list head
-* @node: pointer to the node
-*
-* Return: index of the node or -1
-*/
+ * get_node_index - gets the index of a node
+ * @head: pointer to list head
+ * @node: pointer to the node
+ *
+ * Return: index of node or -1
+ */
 ssize_t get_node_index(list_t *head, list_t *node)
 {
-size_t index = 0;
+	size_t i = 0;
 
-while (head)
-{
-if (head == node)
-return (index);
-head = head->next;
-index++;
+	while (head)
+	{
+		if (head == node)
+			return (i);
+		head = head->next;
+		i++;
+	}
+	return (-1);
 }
-return (-1);
-}
-
