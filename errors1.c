@@ -1,5 +1,5 @@
-#include "shell.h"
-
+#include "custom_shell.h"
+#include <unistd.h>
 /**
 * safe_string_to_int - converts a string to an integer
 * @str: the string to be converted

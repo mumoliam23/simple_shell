@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "custom_shell.h"
 /**
 * display_history - displays the command history with line numbers.
 * @info: Structure containing potential arguments.
